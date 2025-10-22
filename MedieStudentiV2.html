@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <title>Medie Studenti</title>
+    </head>
+    <body>
+        <h1>Guarda il log!!!!</h1>
+    </body>
+    <script>
+        //Funzione di confronto fra  le medie
+        function confrontaMedie(){
+            var mediaPrimoQuad=arguments[0];
+            var mediaSecondoQuad=0.0;
+            //Calcola media
+            for (let i=1;i<arguments.length;i++){
+                mediaSecondoQuad+=arguments[i];
+            }
+            mediaSecondoQuad/=arguments.length-1;
+            //Verifica relazione
+            if(mediaSecondoQuad<6){
+                if(mediaSecondoQuad<mediaPrimoQuad){
+                    return [0,1];
+                }
+                else{
+                    return [1,0];
+                }
+            }
+            else if(mediaSecondoQuad>=6){
+                if(mediaSecondoQuad<mediaPrimoQuad){
+                    return [1,1];
+                }
+                else{
+                    return [0,0];
+                }
+            }
+        }
+        //Funzione per l'inserimento degli studenti
+        function gestisciStudenti(){
+            const datiStudenti=[];
+            const nStudenti=parseInt(prompt("Quanti studenti vuoi inserire?"));
+            for(let i=0;i<nStudenti;i++){
+                const nome=prompt("Inserisci il nome dello studente:")
+                const media=parseFloat(prompt("Inserisci la media del primo periodo:"))
+                const votiSecondo=[];
+                const nVoti=parseInt(prompt("Quanti voti vuoi inserire?"));
+                for(let j=0;j<nVoti;j++){
+                    votiSecondo.push(parseInt(prompt("Inserisci voto "+(j+1)+":")));
+                }
+                datiStudenti.push({
+                    nome: nome,
+                    mediaPrimo: media,
+                    votiSecondo: votiSecondo,
+                })
+            }
+            return datiStudenti;
+        }
+        //Funzione principale che gestisce gli studenti
+
+        const studenti=gestisciStudenti();
+
+        let contA=0;
+        let contB=0;
+        let contC=0;
+        let contD=0;
+        //Stampa risultati per singolo studnete
+        for(let studente of studenti){
+            const [A,B]=confrontaMedie(studente.mediaPrimo,...studente.votiSecondo);
+            if (A===1&&B===0){
+                contA++;
+                console.log(`Lo studente ${studente.nome} ha avuto una media del secondo quadrimestre insufficiente`);
+            }
+            else if(A===0&&B===1){
+                contB++;
+                console.log(`Lo studente ${studente.nome} ha avuto una media del secondo quadrimestre insufficiente ed inferirore a quella del primo`);
+            }
+            else if(A===1&&B===1){
+                contC++;
+                console.log(`Lo studente ${studente.nome} ha avuto una media del secondo quadrimestre sufficiente`);
+            }
+            else if(A===0&&B===0){
+                contD++;
+                console.log(`Lo studente ${studente.nome} ha avuto una media del secondo quadrimestre sufficiente e superiore a quella del primo`);
+            }
+
+        }
+        //Stampa dati collettivi
+        console.log(`${contA} studenti hanno una media del secondo quadrimestre insufficiente`);
+        console.log(`${contB} studenti hanno una media del secondo quadrimestre insufficiente ed inferiore a quella del primo`);
+        console.log(`${contC} studenti hanno una media del secondo quadrimestre insufficiente`);
+        console.log(`${contD} studenti hanno una media del secondo quadrimestre insufficiente e superiore a quella del primo`);
+    </script>
+</html>
