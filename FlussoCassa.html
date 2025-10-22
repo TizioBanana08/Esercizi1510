@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <title>Medie Studenti</title>
+    </head>
+    <body>
+        <h1>Guarda il log!!!!</h1>
+    </body>
+    <script>
+        function calcola(){
+            let tipo=arguments[0];
+            let flusso=0;
+            //Controlla che il primo numero sia un intero, in caso somma quello e quelli dopo il segno
+            if(Number.isInteger(tipo)){
+                flusso+=arguments[0];
+                for(let i=2;i<arguments.length;i++){
+                    flusso+=arguments[i];
+                }
+            }
+            else{
+                //Controlla il segno e fa la somma o la sottrazione
+                switch(arguments[0]){
+                    case '+':
+                        for(let i=1;i<arguments.length;i++){
+                            flusso+=arguments[i];
+                        }
+                        break;
+                    case '-':
+                        for(let i=1;i<arguments.length;i++){
+                            flusso-=arguments[i];
+                        }
+                        break;
+                    default:
+                        console.log("Errore");
+                }
+            }
+            return flusso;
+        }
+        //Stampa i risultati
+        var flussoCassa=0;
+        flussoCassa+=calcola(10,'+',1,2,5,4);
+        console.log(flussoCassa);
+        flussoCassa+=calcola('+',2,3,4);
+        console.log(flussoCassa);
+        flussoCassa+=calcola('-',1,2,3);
+        console.log(flussoCassa);
+    </script>
+</html>
